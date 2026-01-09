@@ -10,8 +10,8 @@ RUN apt -y update && apt -y upgrade && \
     apt -y install bash build-essential net-tools psmisc ca-certificates && \
     apt -y clean && \
     mkdir -p /opt/aenea && \
-    addgroup --gid 1001 aenea && \
-    adduser --gid 1001 --uid 1001 --home /opt/aenea --disabled-login aenea && \
+    /usr/sbin/addgroup --gid 1001 aenea && \
+    /usr/sbin/adduser --gid 1001 --uid 1001 --home /opt/aenea --disabled-login aenea && \
     mkdir -p /opt/aenea/ai/server/ && \
     mkdir -p /opt/aenea/ai/model/
 
