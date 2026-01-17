@@ -38,7 +38,8 @@ jobs:
       run: mkdir binary &&
            cd binary &&
            wget https://github.com/ollama/ollama/releases/download/v0.14.3-rc1/ollama-linux-amd64.tar.zst &&
-           sudo tar --zstd -xvf ollama-linux-amd64.tar.zst
+           sudo tar --zstd -xvf ollama-linux-amd64.tar.zst &&
+           rm -rf ollama-linux-amd64.tar.zst
 
 
     - name: Build aeneaai project
