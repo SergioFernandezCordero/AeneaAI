@@ -36,8 +36,9 @@ jobs:
 
     - name: Get Ollama from repository
       run: mkdir binary &&
-           wget https://github.com/ollama/ollama/releases/download/v0.13.5/ollama-linux-amd64.tgz &&
-           sudo tar -zxvf ollama-linux-amd64.tgz -C binary/
+           cd binary &&
+           wget https://github.com/ollama/ollama/releases/download/v0.14.3-rc1/ollama-linux-amd64.tar.zst &&
+           sudo tar --zstd -xvf ollama-linux-amd64.tar.zst
 
 
     - name: Build aeneaai project

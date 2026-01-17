@@ -17,9 +17,9 @@ RUN apt -y update && apt -y upgrade && \
 # Deploy
 ADD models/* /opt/aenea/ai/model
 ADD scripts/* /opt/aenea/ai/server
-ADD /binary/* /opt/aenea/ai/server
+COPY binary/ /opt/aenea/ai/server
 RUN chown -R aenea:aenea /opt/aenea && \
-    chmod +x /opt/aenea/ai/server/ollama && \
+    chmod +x /opt/aenea/ai/server/bin/ollama && \
     chmod +x /opt/aenea/ai/server/run_ollama_model.sh
 # Run
 USER aenea

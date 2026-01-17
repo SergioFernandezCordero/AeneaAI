@@ -1,4 +1,4 @@
-FROM orca-mini:3b
+FROM gpt-oss:20b
 
 # set the temperature to 1 [higher is more creative, lower is more coherent]
 PARAMETER temperature 1
