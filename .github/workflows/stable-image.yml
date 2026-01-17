@@ -16,6 +16,12 @@ jobs:
       - name: Release information
         run: echo "Release ${{ github.event.release.tag_name }} will be generated"
 
+      - name: Initial cleanup
+        run: sudo rm -rf /usr/share/dotnet
+
+      - name: Check for free space
+        run: df -h
+
       - name: Build qemu dependencies for cross-platform build
         run: sudo apt-get install qemu-user-static
 
@@ -39,4 +45,4 @@ jobs:
       - name: Build aeneaai project
         run: docker buildx use aeneaai &&
             docker buildx inspect --bootstrap &&
-            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t elautoestopista/aeneaai:${{ github.event.release.tag_name }} -t elautoestopista/aeneaai:latest-stable --push .
+            docker buildx build --platform linux/amd64 -t elautoestopista/aeneaai:${{ github.event.release.tag_name }} -t elautoestopista/aeneaai:latest-stable --push .
