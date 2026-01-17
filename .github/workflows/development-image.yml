@@ -47,4 +47,4 @@ jobs:
            BRANCH="${ORIGIN////-}" &&
            docker buildx use aeneaai &&
            docker buildx inspect --bootstrap &&
-           docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t elautoestopista/aeneaai:develop-$BRANCH -t elautoestopista/aeneaai:develop -t elautoestopista/aeneaai:latest --push .
+           docker buildx build --platform linux/amd64 -t elautoestopista/aeneaai:develop-$BRANCH -t elautoestopista/aeneaai:develop -t elautoestopista/aeneaai:latest --push .
