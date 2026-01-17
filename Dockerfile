@@ -6,8 +6,8 @@ LABEL maintainer_name="Sergio Fernández Cordero"
 LABEL maintainer_email="sergio@fernandezcordero.net"
 
 # Environment and dependencies
-RUN apt -y update && apt -y upgrade && \
-    apt -y install bash build-essential net-tools psmisc ca-certificates adduser && \
+RUN apt -y update && \
+    apt -y install bash adduser && \
     apt -y clean && \
     addgroup --gid 1001 aenea && \
     adduser --ingroup aenea --uid 1001 --home /opt/aenea --disabled-login --gecos "Aenea, Server Room, 0118 999 881 999 119 725… 3"  aenea && \
