@@ -16,6 +16,12 @@ jobs:
       - name: Release information
         run: echo "Release ${{ github.event.release.tag_name }} will be generated"
 
+      - name: Initial cleanup
+        run: sudo rm -rf /usr/share/dotnet
+
+      - name: Check for free space
+        run: df -h
+
       - name: Build qemu dependencies for cross-platform build
         run: sudo apt-get install qemu-user-static
 
@@ -31,9 +37,12 @@ jobs:
 
       - name: Get Ollama from repository
         run: mkdir binary &&
-             curl -L https://ollama.ai/download/ollama-linux-amd64 -o binary/ollama
+             cd binary &&
+             wget https://github.com/ollama/ollama/releases/download/v0.14.3-rc1/ollama-linux-amd64.tar.zst &&
+             sudo tar --zstd -xvf ollama-linux-amd64.tar.zst &&
+             rm -rf ollama-linux-amd64.tar.zst
 
       - name: Build aeneaai project
         run: docker buildx use aeneaai &&
             docker buildx inspect --bootstrap &&
-            docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t elautoestopista/aeneaai:${{ github.event.release.tag_name }} -t elautoestopista/aeneaai:latest-stable --push .
+            docker buildx build --platform linux/amd64 -t elautoestopista/aeneaai:${{ github.event.release.tag_name }} -t elautoestopista/aeneaai:latest-stable --push .

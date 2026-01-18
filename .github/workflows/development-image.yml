@@ -15,6 +15,12 @@ jobs:
       with:
         length: 7
 
+    - name: Initial cleanup
+      run: sudo rm -rf /usr/share/dotnet
+
+    - name: Check for free space
+      run: df -h
+
     - name: Build info - Branch
       run: echo ${{ github.ref_name }}
     
@@ -36,8 +42,10 @@ jobs:
 
     - name: Get Ollama from repository
       run: mkdir binary &&
-           wget https://github.com/ollama/ollama/releases/download/v0.13.5/ollama-linux-amd64.tgz &&
-           sudo tar -zxvf ollama-linux-amd64.tgz -C binary/
+           cd binary &&
+           wget https://github.com/ollama/ollama/releases/download/v0.14.3-rc1/ollama-linux-amd64.tar.zst &&
+           sudo tar --zstd -xvf ollama-linux-amd64.tar.zst &&
+           rm -rf ollama-linux-amd64.tar.zst
 
 
     - name: Build aeneaai project
@@ -45,4 +53,4 @@ jobs:
            BRANCH="${ORIGIN////-}" &&
            docker buildx use aeneaai &&
            docker buildx inspect --bootstrap &&
-           docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t elautoestopista/aeneaai:develop-$BRANCH -t elautoestopista/aeneaai:develop -t elautoestopista/aeneaai:latest --push .
+           docker buildx build --platform linux/amd64 -t elautoestopista/aeneaai:develop-$BRANCH -t elautoestopista/aeneaai:develop -t elautoestopista/aeneaai:latest --push .

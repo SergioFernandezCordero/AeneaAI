@@ -2,7 +2,7 @@
 
 # Start Ollama backgrounded
 echo "## Run Ollama server"
-/opt/aenea/ai/server/ollama serve &
+/opt/aenea/ai/server/bin/ollama serve &
 
 # Wait until port is ready
 echo "## Waiting for Ollama to start"
@@ -21,11 +21,11 @@ done
 
 # Create Aenea model
 echo "## Creating Aenea model"
-/opt/aenea/ai/server/ollama create aenea -f /opt/aenea/ai/model/Aenea.Modelfile || exit 2
+/opt/aenea/ai/server/bin/ollama create aenea -f /opt/aenea/ai/model/Aenea.Modelfile || exit 2
 
 # Run Aenea model
 echo "## Running Aenea model"
-/opt/aenea/ai/server/ollama run aenea || exit 2
+/opt/aenea/ai/server/bin/ollama run aenea || exit 2
 
 # The end
 while :
